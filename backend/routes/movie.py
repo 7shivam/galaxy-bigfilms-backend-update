@@ -40,8 +40,6 @@ def lookup_by_callsign(cs):
 async def fetch_movies():
     return lookup_by_callsign("CBS")
 
-
-
 @movie.get('/{id}')
 async def fetch_movie(id: int):
     movie_list=[]
@@ -49,34 +47,6 @@ async def fetch_movie(id: int):
     return movie_list
 
 
-#@movie.post('/')
-#async def create_movie(movie: Movie):
- #   conn.execute(movies.insert().values(
-  #      nombre= movie.nombre,
-   #     idioma= movie.idioma,
-    #    estreno= movie.estreno,
-     #   director= movie.director,
-     #   sipnosis = movie.sipnosis
-   # ))
-    #return conn.execute(movies.select()).fetchall()
-
-
-#@movie.put('/')
-#async def update_movie(id: int , movie: Movie):
- #   conn.execute(movies.update().values(
-  #      nombre= movie.nombre,
-   #     idioma= movie.idioma,
-    #    estreno= movie.estreno,
-     #   director= movie.director,
-     #   sipnosis = movie.sipnosis
-    #).where(movies.c.id == id))
-    #return conn.execute(movies.select()).fetchall()
-
-
-#@movie.delete('/{id}')
-#async def delete_movie(id: int):
- #   conn.execute(movies.delete().where(movies.c.id == id))
-  #  return conn.execute(movies.select()).fetchall()
 
 
 

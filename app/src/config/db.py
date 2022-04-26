@@ -2,7 +2,7 @@ from sqlalchemy import create_engine, MetaData
 import os
 
 ipaddress = os.environ.get('IP_ADDRESS')
-mysql_host_name = os.environ.get(''USER_NAME')
+mysql_host_name = os.environ.get('USER_NAME')
 mysql_host_pass = os.environ.get('MYSQL_ROOT_PASSWORD')
 database_name = os.environ.get('MYSQL_DATABASE')
 

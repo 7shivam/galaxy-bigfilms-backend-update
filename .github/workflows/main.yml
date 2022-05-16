@@ -44,23 +44,41 @@ jobs:
     
 
      # Setup gcloud CLI
-    - uses: google-github-actions/setup-gcloud@v0
-      with:
-        service_account_key: ${{ secrets.MY_GH_TOKEN }}
-        project_id: ${{ env.PROJECT_ID }}
+#     - uses: google-github-actions/setup-gcloud@v0
+#       with:
+#         service_account_key: ${{ secrets.MY_GH_TOKEN }}
+#         project_id: ${{ env.PROJECT_ID }}
 
     
 
-    - run: |-
-        gcloud --quiet auth configure-docker
+#     - run: |-
+#         gcloud --quiet auth configure-docker
         
+#     # Get the GKE credentials so we can deploy to the cluster
+#     - name: Set up GKE credentials
+#       uses: google-github-actions/get-gke-credentials@v0
+#       with:
+#         cluster_name: ${{ env.GKE_CLUSTER }}
+#         location: ${{ env.GKE_ZONE }}
+#         credentials: ${{ secrets.MY_GH_TOKEN }}
+    # Configure Workload Identity Federation and generate an access token.
+    - id: 'auth'
+      name: 'Authenticate to Google Cloud'
+      uses: 'google-github-actions/auth@v0'
+      with:
+        token_format: 'access_token'
+        workload_identity_provider: 'projects/987650370740/locations/global/workloadIdentityPools/gh-deploy-pool/providers/gh-deploy-provider'
+        service_account: 'gh-deploy-service-account@cybage-devops.iam.gserviceaccount.com'
+
+    - name: Docker configuration
+      run: |-
+        echo ${{steps.auth.outputs.access_token}} | docker login -u oauth2accesstoken --password-stdin https://$REGISTRY_HOSTNAME/$PROJECT_ID
     # Get the GKE credentials so we can deploy to the cluster
     - name: Set up GKE credentials
       uses: google-github-actions/get-gke-credentials@v0
       with:
         cluster_name: ${{ env.GKE_CLUSTER }}
         location: ${{ env.GKE_ZONE }}
-        credentials: ${{ secrets.MY_GH_TOKEN }}
 
     # Build the Docker image
     - name: Build

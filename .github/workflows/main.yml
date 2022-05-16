@@ -7,7 +7,7 @@ name: User-Service
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main1 ]
     # Publish semver tags as releases.
     tags: [ 'v*.*.*' ]
   pull_request:

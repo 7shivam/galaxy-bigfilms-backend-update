@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: galaxybackend
+  labels:
+    app: galaxy_backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: galaxy_backend
+  template:
+    metadata:
+      labels:
+        app: galaxy_backend
+    spec:
+      containers:
+       - name: customerdb
+         image: REGISTRY_HOSTNAME/PROJECT_ID/IMAGE:GITHUB_SHA
+         ports:
+         - containerPort: 8000
+         env:
+         - name: MYSQL_ROOT_PASSWORD
+           valueFrom:
+              secretKeyRef:
+                name: mysqlsecret
+                key: mysql-password
+         - name: MYSQL_DATABASE
+           valueFrom:
+              secretKeyRef:
+                name: mysqlsecret
+                key: mysql-database
+         - name: USER_NAME
+           valueFrom:
+              secretKeyRef:
+                name: mysqlsecret
+                key: mysql-user
+
+         - name: IP_ADDRESS
+           value: db
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: backend-service
+
+spec:
+    type: LoadBalancer
+    ports:
+      - protocol: "TCP"
+        targetPort: 8000
+        port: 8000
+    selector:
+         app: galaxy_backend
+           

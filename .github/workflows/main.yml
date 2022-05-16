@@ -21,7 +21,7 @@ env:
   PROJECT_ID: cybage-devops
   GAR_LOCATION: us-central1 # TODO: update region of the Artifact Registry
   REGISTRY_HOSTNAME: gcr.io
-  GKE_CLUSTER: istio-cluster    # TODO: update to cluster name
+  GKE_CLUSTER: istio-cluster   # TODO: update to cluster name
   GKE_ZONE: us-central1-c   # TODO: update to cluster zone
   DEPLOYMENT_NAME: galaxybackend  #  TODO: update to deployment name
   REPOSITORY: tvc-ctg # TODO: update to Artifact Registry docker repository

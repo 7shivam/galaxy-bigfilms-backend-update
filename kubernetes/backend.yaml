@@ -14,9 +14,11 @@ spec:
       labels:
         app: galaxy_backend
     spec:
+      imagePullSecrets:
+       - name: myghsecret
       containers:
        - name: customerdb
-         image: REGISTRY_HOSTNAME/PROJECT_ID/IMAGE:GITHUB_SHA
+         image: ghcr.io/tvc-ctg/galaxy-bigfilms-backend-python:main
          ports:
          - containerPort: 8000
          env:

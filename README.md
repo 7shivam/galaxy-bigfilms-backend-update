@@ -8,7 +8,7 @@
 2) Create db using db.yaml file 
 
 ```bash 
-kubectl apply -f db.yaml
+kubectl apply -f db.yaml 
 ```
 
 3) Check status and start deploying backend once db is up 
